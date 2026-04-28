@@ -106,27 +106,53 @@ Vagrant → VirtualBox → Virtual Machines
 
 ---
 
-# 🧠 Difference Between Memory and RAM in VMs
+# 🧠 Difference Between Memory (RAM) and CPU in VMs
 
-In this context:
+In the Vagrantfile:
 
-```ruby
 vb.memory = 1024
-```
 
-* **Memory = RAM allocated to VM**
-* Measured in MB (1024 MB = 1 GB)
+vb.cpus = 1
 
-### Important:
 
-* This is **not total system RAM**
-* It’s how much RAM each VM gets
+## 💾 Memory (RAM)
 
-### Example:
+- Memory = RAM allocated to the VM
+- Measured in MB
+```👉 1024 MB = 1 GB```
+
+### What it does:
+- Stores running processes and data
+- Required for OS + Kubernetes components
+#### Example:
 
 If your system has 8GB RAM:
 
-* 2 VMs × 1GB each = 2GB used
+2 VMs × 1GB each = 2GB used
+
+
+
+## ⚙️ CPU
+CPU = processing power allocated to the VM
+Measured in number of cores
+
+vb.cpus = 1
+
+This means:
+
+👉 Each VM gets 1 CPU core
+
+---
+
+### 🧠 What CPU does:
+- Executes instructions
+- Runs processes
+- Handles computations
+
+---
+#### In simple terms:
+#### RAM = memory (stores things)
+#### CPU = brain (processes things)
 
 ---
 
