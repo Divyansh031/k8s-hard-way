@@ -3,3 +3,9 @@ vagrant/.vagrant
 *.pem
 *.csr
 *-key.pem
+
+# kubeconfigs
+*.kubeconfig
+
+# generated files
+generated/
