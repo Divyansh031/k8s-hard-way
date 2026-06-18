@@ -1,5 +1,5 @@
 struct.txt
-vagrant/.vagrant 
+.vagrant/
 *.pem
 *.csr
 *-key.pem
@@ -9,3 +9,6 @@ vagrant/.vagrant
 
 # generated files
 generated/
+
+certs/generated/
+kubeconfigs/generated/

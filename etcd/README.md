@@ -9,6 +9,29 @@ Before Kubernetes components can run, they need a place to store cluster state.
 That storage layer is etcd.
 
 ---
+# 📁 Files Used
+
+This phase relies on:
+
+```text
+scripts/etcd.sh
+certs/generated/ca.pem
+certs/generated/etcd.pem
+certs/generated/etcd-key.pem
+```
+
+Generated certificates are copied to:
+
+```text
+/etc/etcd
+```
+
+The etcd database is stored in:
+
+```text
+/var/lib/etcd
+```
+---
 
 # What is etcd?
 
@@ -260,6 +283,24 @@ Verification:
 ```bash
 etcd --version
 ```
+---
+
+# 🤖 Automation
+
+The entire etcd setup is automated through:
+
+```text
+scripts/etcd.sh
+```
+
+The script:
+
+1. Installs etcd binaries
+2. Creates required directories
+3. Copies TLS certificates
+4. Creates the systemd service
+5. Starts etcd
+6. Verifies health
 
 ---
 

@@ -286,6 +286,54 @@ If IP forwarding is OFF:
 
 ---
 
+# 📁 Infrastructure Files
+
+This phase is driven by three files:
+
+```text
+Vagrantfile
+settings.yaml
+scripts/common.sh
+```
+
+### Vagrantfile
+
+Responsible for:
+
+- Creating controller and worker VMs
+- Assigning CPU and RAM
+- Configuring networking
+- Running provisioning scripts
+
+### settings.yaml
+
+Acts as the central configuration file.
+
+Contains:
+
+```yaml
+network:
+  control_ip:
+  worker_ip:
+
+software:
+  box:
+```
+
+This allows infrastructure settings to be changed without modifying the Vagrantfile.
+
+### scripts/common.sh
+
+Executed automatically when VMs are provisioned.
+
+Responsible for:
+
+- Disabling swap
+- Configuring /etc/hosts
+- Enabling IP forwarding
+- Installing common packages
+
+---
 # 🔥 Final Understanding
 
 By setting up this infrastructure, we are:

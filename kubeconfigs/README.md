@@ -13,6 +13,25 @@ Without kubeconfigs, Kubernetes components would not know where the API server i
 
 ---
 
+# 📁 Kubeconfig Directory Structure
+
+```text
+kubeconfigs/
+├── generated
+│   ├── admin.kubeconfig
+│   ├── controller-manager.kubeconfig
+│   ├── scheduler.kubeconfig
+│   └── worker-1.kubeconfig
+│
+└── README.md
+```
+
+All generated kubeconfigs are stored inside:
+
+```text
+kubeconfigs/generated/
+```
+---
 ## 🧠 Big Picture
 
 Every Kubernetes component communicates through the API Server. To communicate securely, components need:
@@ -86,6 +105,26 @@ sudo mv kubectl /usr/local/bin/
 kubectl version --client
 
 ```
+---
+# 🤖 Automation
+
+Kubeconfig generation is automated through:
+
+```text
+scripts/kubeconfigs.sh
+```
+
+The script:
+
+- Reads certificates generated earlier
+- Creates kubeconfigs for each component
+- Embeds certificates
+- Stores outputs inside:
+
+```text
+kubeconfigs/generated/
+```
+
 
 ---
 

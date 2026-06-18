@@ -1,0 +1,35 @@
+cluster_name: k8s-hard-way
+
+network:
+  controller_ip: 192.168.56.10
+  worker_ip_start: 192.168.56.11   # incremented per worker
+  service_cidr: 10.32.0.0/24       # first IP becomes kubernetes service IP
+  pod_cidr: 10.200.0.0/16
+  dns_servers:
+    - 8.8.8.8
+    - 1.1.1.1
+
+nodes:
+  controller:
+    count: 1
+    cpu: 2
+    memory: 2048
+  workers:
+    count: 1
+    cpu: 1
+    memory: 1024
+
+software:
+  box: ubuntu/jammy64
+  etcd: v3.6.12
+  kubernetes: v1.36.0
+  cni_plugins: v1.6.0
+  containerd: 2.0.4
+
+certs:
+  expiry: 8760h
+  country: IN
+  state: Karnataka
+  locality: Bangalore
+  org: Kubernetes
+  ou: Kubernetes  
