@@ -261,7 +261,7 @@ Benefits:
 Downloaded:
 
 ```bash
-ETCD_VERSION=v3.5.21
+ETCD_VERSION=v3.6.12
 
 wget https://github.com/etcd-io/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz
 ```

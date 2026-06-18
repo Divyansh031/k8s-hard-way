@@ -2,6 +2,11 @@
 
 set -euxo pipefail
 
+if [ -f /vagrant/certs/generated/ca.pem ]; then
+  echo "✅ certs already generated, skipping"
+  exit 0
+fi
+
 CERTS_DIR="/vagrant/certs/generated"
 mkdir -p $CERTS_DIR
 cd $CERTS_DIR
@@ -71,5 +76,12 @@ cfssl gencert \
   -profile=kubernetes \
   -hostname=127.0.0.1,${CONTROLLER_IP},controller-1 \
   /vagrant/certs/etcd-csr.json | cfssljson -bare etcd
+
+# 8. Service Account key pair
+cfssl gencert \
+  -ca=ca.pem -ca-key=ca-key.pem \
+  -config=/vagrant/certs/ca-config.json \
+  -profile=kubernetes \
+  /vagrant/certs/service-account-csr.json | cfssljson -bare service-account  
 
 echo "All certificates generated successfully"

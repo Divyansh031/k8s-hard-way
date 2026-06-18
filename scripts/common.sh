@@ -2,6 +2,12 @@
 
 set -euxo pipefail
 
+# Skip if already provisioned
+if command -v kubectl &>/dev/null && command -v cfssl &>/dev/null; then
+  echo "✅ common.sh already provisioned, skipping"
+  exit 0
+fi
+
 # Update system
 apt-get update -y
 

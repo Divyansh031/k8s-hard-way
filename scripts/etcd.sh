@@ -2,6 +2,11 @@
 
 set -euxo pipefail
 
+if systemctl is-active --quiet etcd; then
+  echo "✅ etcd already running, skipping"
+  exit 0
+fi
+
 CERTS_SRC="/vagrant/certs/generated"
 
 # 1. Download and install etcd
@@ -18,7 +23,7 @@ mkdir -p /etc/etcd /var/lib/etcd
 chmod 700 /var/lib/etcd
 
 # 3. Copy certs
-cp ${CERTS_SRC}/ca.pem \    
+cp ${CERTS_SRC}/ca.pem \
    ${CERTS_SRC}/etcd.pem \
    ${CERTS_SRC}/etcd-key.pem \
    /etc/etcd/

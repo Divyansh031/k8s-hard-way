@@ -2,6 +2,11 @@
 
 set -euxo pipefail
 
+if [ -f /vagrant/kubeconfigs/generated/admin.kubeconfig ]; then
+  echo "✅ kubeconfigs already generated, skipping"
+  exit 0
+fi
+
 CERTS="/vagrant/certs/generated"
 OUT="/vagrant/kubeconfigs/generated"
 mkdir -p $OUT

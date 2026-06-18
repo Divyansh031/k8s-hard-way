@@ -59,6 +59,31 @@ Vagrant.configure("2") do |config|
         "ETCD_VERSION"  => settings["software"]["etcd"],
       },
       path: "scripts/etcd.sh"  
+
+    node.vm.provision "shell",
+      path: "scripts/control-plane-setup.sh"
+
+    node.vm.provision "shell",
+      env: {
+        "CONTROLLER_IP"      => CONTROLLER_IP,
+        "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
+        "SERVICE_CIDR"       => settings["network"]["service_cidr"],
+      },
+      path: "scripts/api-server.sh"
+
+    node.vm.provision "shell",
+      env: {
+        "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
+        "POD_CIDR"           => settings["network"]["pod_cidr"],
+        "SERVICE_CIDR"       => settings["network"]["service_cidr"],
+      },
+      path: "scripts/controller-manager.sh"
+
+    node.vm.provision "shell",
+      env: {
+        "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
+      },
+      path: "scripts/scheduler.sh"  
   end
 
   # Workers
