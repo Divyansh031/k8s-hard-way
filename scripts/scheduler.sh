@@ -2,6 +2,11 @@
 
 set -euxo pipefail
 
+if systemctl is-active --quiet kube-scheduler; then
+  echo "✅ kube-scheduler already running, skipping"
+  exit 0
+fi
+
 # 1. Download binary
 wget -q --show-progress \
   "https://dl.k8s.io/release/${KUBERNETES_VERSION}/bin/linux/amd64/kube-scheduler"

@@ -2,6 +2,11 @@
 
 set -euxo pipefail
 
+if [ -f /etc/kubernetes/pki/ca.pem ]; then
+  echo "✅ control plane setup already done, skipping"
+  exit 0
+fi
+
 CERTS="/vagrant/certs/generated"
 CONFIGS="/vagrant/kubeconfigs/generated"
 

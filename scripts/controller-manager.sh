@@ -2,6 +2,11 @@
 
 set -euxo pipefail
 
+if systemctl is-active --quiet kube-controller-manager; then
+  echo "✅ kube-controller-manager already running, skipping"
+  exit 0
+fi
+
 # 1. Download binary
 wget -q --show-progress \
   "https://dl.k8s.io/release/${KUBERNETES_VERSION}/bin/linux/amd64/kube-controller-manager"

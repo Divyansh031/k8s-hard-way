@@ -83,7 +83,10 @@ Vagrant.configure("2") do |config|
       env: {
         "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
       },
-      path: "scripts/scheduler.sh"  
+      path: "scripts/scheduler.sh" 
+      
+    node.vm.provision "shell",
+      path: "scripts/rbac.sh"  
   end
 
   # Workers
