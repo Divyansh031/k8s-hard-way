@@ -50,109 +50,81 @@ Current cluster:
 # Repository Structure
 
 ```text
-.
 ├── certs
-│   ├── *.json
-│   ├── generated/
-│   └── README.md
-│
+│   ├── admin-csr.json
+│   ├── ca-config.json
+│   ├── ca-csr.json
+│   ├── controller-manager-csr.json
+│   ├── etcd-csr.json
+│   ├── generated
+│   │   ├── admin.csr
+│   │   ├── admin-key.pem
+│   │   ├── admin.pem
+│   │   ├── ca.csr
+│   │   ├── ca-key.pem
+│   │   ├── ca.pem
+│   │   ├── controller-manager.csr
+│   │   ├── controller-manager-key.pem
+│   │   ├── controller-manager.pem
+│   │   ├── etcd.csr
+│   │   ├── etcd-key.pem
+│   │   ├── etcd.pem
+│   │   ├── kubernetes.csr
+│   │   ├── kubernetes-key.pem
+│   │   ├── kubernetes.pem
+│   │   ├── scheduler.csr
+│   │   ├── scheduler-key.pem
+│   │   ├── scheduler.pem
+│   │   ├── service-account.csr
+│   │   ├── service-account-key.pem
+│   │   ├── service-account.pem
+│   │   ├── worker-1.csr
+│   │   ├── worker-1-csr.json
+│   │   ├── worker-1-key.pem
+│   │   └── worker-1.pem
+│   ├── kubernetes-csr.json
+│   ├── README.md
+│   ├── scheduler-csr.json
+│   └── service-account-csr.json
+├── control-plane
+│   ├── api-server
+│   │   └── README.md
+│   ├── controller-manager
+│   │   └── README.md
+│   ├── etcd
+│   │   └── README.md
+│   ├── rbac
+│   │   └── README.md
+│   └── scheduler
+│       └── README.md
 ├── kubeconfigs
-│   ├── generated/
+│   ├── generated
+│   │   ├── admin.kubeconfig
+│   │   ├── controller-manager.kubeconfig
+│   │   ├── scheduler.kubeconfig
+│   │   └── worker-1.kubeconfig
 │   └── README.md
-│
-├── etcd
-│   └── README.md
-│
+├── README.md
 ├── scripts
-│   ├── common.sh
+│   ├── api-server.sh
 │   ├── certs.sh
+│   ├── common.sh
+│   ├── controller-manager.sh
+│   ├── control-plane-setup.sh
+│   ├── etcd.sh
 │   ├── kubeconfigs.sh
-│   └── etcd.sh
-│
+│   ├── rbac.sh
+│   └── scheduler.sh
+├── settings.yaml
+├── struct.txt
 ├── vagrant
 │   └── README.md
-│
-│── README.md
-├── settings.yaml
 └── Vagrantfile
 ```
 
 ---
 
-# Project Progress
 
-## Phase 1 - Infrastructure
-
-Completed:
-
-* Vagrant setup
-* VirtualBox networking
-* Static IP configuration
-* Hostname configuration
-* Swap disabled
-* IP forwarding enabled
-
-Documentation:
-
-```text
-vagrant/README.md
-```
-
----
-
-## Phase 2 - Certificates
-
-Completed:
-
-* Certificate Authority (CA)
-* Admin certificate
-* Worker certificate
-* API Server certificate
-* Scheduler certificate
-* Controller Manager certificate
-* etcd certificate
-
-Documentation:
-
-```text
-certs/README.md
-```
-
----
-
-## Phase 3 - Kubeconfigs
-
-Completed:
-
-* worker-1.kubeconfig
-* controller-manager.kubeconfig
-* scheduler.kubeconfig
-* admin.kubeconfig
-
-Documentation:
-
-```text
-kubeconfigs/README.md
-```
-
----
-
-## Phase 4 - etcd
-
-Completed:
-
-* etcd installation
-* TLS configuration
-* systemd service
-* health verification
-
-Documentation:
-
-```text
-etcd/README.md
-```
-
----
 
 # Learning Outcomes
 
