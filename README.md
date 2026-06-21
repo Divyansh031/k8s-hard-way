@@ -50,6 +50,7 @@ Current cluster:
 # Repository Structure
 
 ```text
+.
 ├── certs
 │   ├── admin-csr.json
 │   ├── ca-config.json
@@ -69,6 +70,9 @@ Current cluster:
 │   │   ├── etcd.csr
 │   │   ├── etcd-key.pem
 │   │   ├── etcd.pem
+│   │   ├── kube-proxy.csr
+│   │   ├── kube-proxy-key.pem
+│   │   ├── kube-proxy.pem
 │   │   ├── kubernetes.csr
 │   │   ├── kubernetes-key.pem
 │   │   ├── kubernetes.pem
@@ -82,6 +86,7 @@ Current cluster:
 │   │   ├── worker-1-csr.json
 │   │   ├── worker-1-key.pem
 │   │   └── worker-1.pem
+│   ├── kube-proxy-csr.json
 │   ├── kubernetes-csr.json
 │   ├── README.md
 │   ├── scheduler-csr.json
@@ -101,6 +106,7 @@ Current cluster:
 │   ├── generated
 │   │   ├── admin.kubeconfig
 │   │   ├── controller-manager.kubeconfig
+│   │   ├── kube-proxy.kubeconfig
 │   │   ├── scheduler.kubeconfig
 │   │   └── worker-1.kubeconfig
 │   └── README.md
@@ -108,18 +114,35 @@ Current cluster:
 ├── scripts
 │   ├── api-server.sh
 │   ├── certs.sh
+│   ├── cni.sh
 │   ├── common.sh
+│   ├── containerd.sh
 │   ├── controller-manager.sh
 │   ├── control-plane-setup.sh
+│   ├── core-dns.sh
 │   ├── etcd.sh
 │   ├── kubeconfigs.sh
+│   ├── kubectl-config.sh
+│   ├── kubelet.sh
+│   ├── kube-proxy.sh
 │   ├── rbac.sh
 │   └── scheduler.sh
 ├── settings.yaml
 ├── struct.txt
 ├── vagrant
 │   └── README.md
-└── Vagrantfile
+├── Vagrantfile
+└── worker
+    ├── cni
+    │   └── README.md
+    ├── containerd
+    │   └── README.md
+    ├── core-dns
+    │   └── README.md
+    ├── kubelet
+    │   └── README.md
+    └── kube-proxy
+        └── README.md
 ```
 
 ---
