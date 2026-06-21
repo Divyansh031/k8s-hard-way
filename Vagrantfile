@@ -87,6 +87,15 @@ Vagrant.configure("2") do |config|
       
     node.vm.provision "shell",
       path: "scripts/rbac.sh"  
+
+    node.vm.provision "shell",
+      path: "scripts/kubectl-config.sh"  
+
+    node.vm.provision "shell",
+      env: {
+        "CLUSTER_DNS" => "10.32.0.10",
+      },
+      path: "scripts/core-dns.sh"  
   end
 
   # Workers
