@@ -84,4 +84,11 @@ cfssl gencert \
   -profile=kubernetes \
   /vagrant/certs/service-account-csr.json | cfssljson -bare service-account  
 
+# 9. kube-proxy
+cfssl gencert \
+  -ca=ca.pem -ca-key=ca-key.pem \
+  -config=/vagrant/certs/ca-config.json \
+  -profile=kubernetes \
+  /vagrant/certs/kube-proxy-csr.json | cfssljson -bare kube-proxy
+
 echo "All certificates generated successfully"

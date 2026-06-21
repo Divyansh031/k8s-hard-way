@@ -91,9 +91,13 @@ Vagrant.configure("2") do |config|
 
   # Workers
   (1..NUM_WORKERS).each do |i|
+    worker_ip = "#{IP_NW}#{IP_START + i - 1}"
+    # per-worker pod subnet: e.g. worker-1 gets 10.200.1.0/24, worker-2 gets 10.200.2.0/24
+    pod_cidr_node = "10.200.#{i}.0/24"
+
     config.vm.define "worker-#{i}" do |node|
       node.vm.hostname = "worker-#{i}"
-      node.vm.network "private_network", ip: "#{IP_NW}#{IP_START + i - 1}"
+      node.vm.network "private_network", ip: worker_ip
       node.vm.provider "virtualbox" do |vb|
         vb.memory = settings["nodes"]["workers"]["memory"]
         vb.cpus   = settings["nodes"]["workers"]["cpu"]
@@ -101,11 +105,31 @@ Vagrant.configure("2") do |config|
           vb.customize ["modifyvm", :id, "--groups", "/#{settings["cluster_name"]}"]
         end
       end
-      node.vm.provision "shell", 
-      env: {
-        "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
-      },
-      path: "scripts/common.sh"
+      node.vm.provision "shell",
+        env: { "KUBERNETES_VERSION" => settings["software"]["kubernetes"] },
+        path: "scripts/common.sh"
+      node.vm.provision "shell",
+        env: { "CONTAINERD_VERSION" => settings["software"]["containerd"] },
+        path: "scripts/containerd.sh"
+      node.vm.provision "shell",
+        env: {
+          "CNI_VERSION"    => settings["software"]["cni_plugins"],
+          "POD_CIDR_NODE"  => pod_cidr_node,
+        },
+        path: "scripts/cni.sh"
+      node.vm.provision "shell",
+        env: {
+          "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
+          "POD_CIDR_NODE"      => pod_cidr_node,
+          "CLUSTER_DNS"        => "10.32.0.10",
+        },
+        path: "scripts/kubelet.sh"
+      node.vm.provision "shell",
+        env: {
+          "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
+          "POD_CIDR"           => settings["network"]["pod_cidr"],
+        },
+        path: "scripts/kube-proxy.sh"
     end
   end
 end

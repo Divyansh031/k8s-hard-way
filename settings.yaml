@@ -23,8 +23,8 @@ software:
   box: ubuntu/jammy64
   etcd: v3.6.12
   kubernetes: v1.36.0
-  cni_plugins: v1.6.0
-  containerd: 2.0.4
+  cni_plugins: v1.9.1
+  containerd: 2.3.1
 
 certs:
   expiry: 8760h

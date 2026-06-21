@@ -99,4 +99,25 @@ kubectl config set-context default \
 kubectl config use-context default \
   --kubeconfig=$OUT/admin.kubeconfig
 
+
+# kube-proxy
+kubectl config set-cluster kubernetes-the-hard-way \
+  --certificate-authority=$CERTS/ca.pem \
+  --embed-certs=true \
+  --server=$API_SERVER \
+  --kubeconfig=$OUT/kube-proxy.kubeconfig
+
+kubectl config set-credentials system:kube-proxy \
+  --client-certificate=$CERTS/kube-proxy.pem \
+  --client-key=$CERTS/kube-proxy-key.pem \
+  --embed-certs=true \
+  --kubeconfig=$OUT/kube-proxy.kubeconfig
+
+kubectl config set-context default \
+  --cluster=kubernetes-the-hard-way \
+  --user=system:kube-proxy \
+  --kubeconfig=$OUT/kube-proxy.kubeconfig
+
+kubectl config use-context default --kubeconfig=$OUT/kube-proxy.kubeconfig  
+
 echo "All kubeconfigs generated successfully"
