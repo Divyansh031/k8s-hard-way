@@ -49,6 +49,10 @@ tlsPrivateKeyFile: /var/lib/kubelet/${HOSTNAME}-key.pem
 cgroupDriver: systemd
 EOF
 
+# Detect host-only IP
+NODE_IP=$(ip addr show | grep 'inet 192\.168\.56\.' | awk '{print $2}' | cut -d'/' -f1)
+
+
 # 5. Systemd unit
 cat <<EOF > /etc/systemd/system/kubelet.service
 [Unit]
@@ -63,6 +67,7 @@ ExecStart=/usr/local/bin/kubelet \\
   --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
   --kubeconfig=/var/lib/kubelet/kubeconfig \\
   --register-node=true \\
+  --node-ip=${NODE_IP} \\
   --v=2
 Restart=on-failure
 RestartSec=5

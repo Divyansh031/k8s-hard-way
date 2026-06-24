@@ -19,6 +19,8 @@ mkdir -p /var/lib/kube-proxy
 cp ${CONFIGS}/kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
 # 3. Config file
+NODE_IP=$(ip addr show | grep 'inet 192\.168\.56\.' | awk '{print $2}' | cut -d'/' -f1)
+
 cat <<EOF > /var/lib/kube-proxy/kube-proxy-config.yaml
 kind: KubeProxyConfiguration
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
@@ -26,6 +28,8 @@ clientConnection:
   kubeconfig: /var/lib/kube-proxy/kubeconfig
 mode: iptables
 clusterCIDR: ${POD_CIDR}
+nodePortAddresses:
+    - "${NODE_IP}/24"   
 EOF
 
 # 4. Systemd unit

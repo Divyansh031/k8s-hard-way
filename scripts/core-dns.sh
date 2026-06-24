@@ -161,8 +161,3 @@ spec:
 EOF
 
 echo "✅ CoreDNS deployed"
-
-# 5. Wait for it to be ready
-echo "Waiting for CoreDNS to be ready..."
-kubectl rollout status deployment/coredns -n kube-system \
-  --kubeconfig=$KUBECONFIG --timeout=120s
